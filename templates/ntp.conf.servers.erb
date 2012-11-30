@@ -1,0 +1,52 @@
+<%
+# Order of elements in this template:
+# First come reference clocks (servers only)
+# Then come peers (servers only)
+# Then come servers
+# Then come pool servers
+#
+# Refclock configuration is fairly complicated, requires multiple
+# statements per refclock, and is difficult to abstract, so just
+# require it to be specified as a string.
+#
+# Peers and servers are specified as arrays.  The server_options
+# hash is used to add special options to each one, either
+# remote-server-specific options (for peers and remote servers) or
+# defaults (for remote servers only).
+#
+# Comments are stripped from each peer and server entry.
+#
+%>
+<% if @refclocks -%>
+<%= @refclocks %>
+<% end -%>
+<% @peers.each do |peer| -%>
+<% peer = peer.sub(/[[:space:]]*#.*/, '') -%>
+peer <%= peer -%>
+<%   if @server_options.has_key?(peer) -%>
+ <%= server_options[peer] -%>
+<%   end -%>
+<%   if @keys.has_key?(peer) -%>
+ keyid <%= @keys[peer]['id'] %>
+<%   end %>
+<% end -%>
+<% @servers.each do |server| -%>
+<% server = server.sub(/[[:space:]]*#.*/, '') -%>
+server <%= server -%>
+<%   if @server_options.has_key?(server) -%>
+ <%= @server_options[server] -%>
+<%   elsif @server_options.has_key?('default') -%>
+ <%= @server_options['default'] -%>
+<%   end # if -%>
+<%   if @keys.has_key?(server) -%>
+ keyid <%= @keys[server]['id'] %>
+<%   end %>
+<% end # servers %>
+<% if @servers.empty? and @peers.empty? and @refclocks.empty? -%>
+<%   @pool_servers.each do |pool_server| -%>
+pool <%= pool_server -%>
+<%     unless @pool_server_options.nil? -%>
+ <%= @pool_server_options -%>
+<%     end # pool_server_options %>
+<%   end # pool_servers -%>
+<% end # if -%>

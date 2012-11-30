@@ -1,0 +1,13 @@
+# This file is managed by Puppet -- DO NOT EDIT
+
+<%
+# ntp.conf.header.erb: template for the first few lines of ntp.conf
+# This template is used for all NTP configurations, client and server,
+# so options which are common to both configurations should be set here.
+-%>
+# NTP configuration file for <%= @fqdn %>
+#
+driftfile <%= @driftfile %>
+<% if @leapseconds -%>
+leapfile /etc/ntp.leapseconds
+<% end -%>

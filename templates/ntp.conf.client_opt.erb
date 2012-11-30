@@ -1,0 +1,23 @@
+#
+# Access controls for client-only NTP
+#
+<% unless @servers.empty? -%>
+restrict default ignore
+
+# Allow network managers to do anything
+<%   @management_stations.each do |manager| -%>
+restrict <%= manager %>
+<%   end -%>
+
+# Allow our configured servers to give us time but not change our config
+<%   @servers.each do |server| -%>
+restrict <%= server.sub(/[[:space:]]*#.*/, '') %> nomodify nopeer notrap
+<%   end -%>
+
+# Allow localhost to do anything
+restrict 127.0.0.1
+restrict -6 ::1
+<% else -%>
+# Access controls are disabled for pool clients because the DNS
+# lookup may give different answers each time we query it.
+<% end -%>

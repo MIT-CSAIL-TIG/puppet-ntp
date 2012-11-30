@@ -1,0 +1,22 @@
+<%
+# Structure of ntp.keys data in hiera:
+#
+# ntp_keys is a hash.  The keys of the hash are tags that indicate
+# what each symmetric key is to be used for: it is either the name
+# of a peer or one of the special tags 'ntpq' or 'ntpdc'.  The
+# value is another hash, which has the keys 'id', 'type', and 'key',
+# which are the three columns of the ntp.keys file.  All of the
+# keys mentioned in ntp_keys will be written to the ntp.keys file
+# we construct, whether or not the server or function represented
+# by the key's tag is actually in use.
+#
+
+# Yes, I could do it with Hash#inject(), but this is clearer!
+keys_by_id = {}
+@keys.each do |tag, key|
+  keys_by_id[key['id'].to_i] = key
+end
+-%>
+<% keys_by_id.keys.sort.each do |keyid| -%>
+<%= keyid %>	<%= keys_by_id[keyid]['type'] %>	<%= keys_by_id[keyid]['key'] %>
+<% end -%>

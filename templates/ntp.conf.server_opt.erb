@@ -1,0 +1,49 @@
+#
+# Access controls for NTP servers.
+#
+<% if @keys.empty? -%>
+# Symmetric-key authentication is not configured
+<% else -%>
+# Symmetric-key authentication setup
+keys		/etc/ntp.keys
+trustedkey	<%= @keys.keys.sort.collect {|k| @keys[k]['id']}.join(" ") %>
+<%   if @keys.has_key?('ntpdc') -%>
+#
+# requestkey defines the authentication mechanism for mode 7 (ntpdc)
+# control operations.
+#
+requestkey	<%= @keys['ntpdc']['id'] %>
+<%   end -%>
+<%   if @keys.has_key?('ntpq') -%>
+#
+# controlkey defines the authentication mechanism for mode 6 (ntpq)
+# control operations.
+#
+controlkey	<%= @keys['ntpq']['id'] %>
+<%   end -%>
+<% end -%>
+#
+# Access controls for unauthenticated clients
+#
+restrict default kod nomodify notrap nopeer
+restrict -6 default kod nomodify notrap nopeer
+
+# Allow network managers to do anything
+<% @management_stations.each do |manager| -%>
+restrict <%= manager.sub(/[[:space:]]*#.*/, '') %>
+<% end -%>
+
+# Allow our configured servers to give us time but not change our config
+<% @servers.each do |server| -%>
+restrict <%= server.sub(/[[:space:]]*#.*/, '') %> nomodify nopeer notrap
+<% end -%>
+
+# Allow our configured peers to peer with us
+<% @peers.each do |peer| -%>
+restrict <%= peer.sub(/[[:space:]]*#.*/, '') %> nomodify notrap
+<% end -%>
+
+# Allow localhost to do anything
+restrict 127.0.0.1
+restrict -6 ::1
+
