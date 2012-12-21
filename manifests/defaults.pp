@@ -17,7 +17,7 @@ class ntp::defaults {
   }
 
   # Most machines are clients, not servers.
-  $server = 0 != 0
+  $server = false
 
   # Different operating systems put the drift file in different places.
   $driftfile          = $::osfamily ? {
