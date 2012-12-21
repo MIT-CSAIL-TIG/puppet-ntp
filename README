@@ -1,0 +1,95 @@
+ntp
+
+This is the ntp module and class.  It configures both servers and clients,
+and gets all of its configuration information from Hiera.  Currently,
+FreeBSD and Debian/Ubuntu are supported.  Note that on FreeBSD we assume
+that you are using the ports version and not the base-system version,
+and furthermore that you are using a pkgng package provider.
+
+Class parameters
+----------------
+Note that the ensure pattern is not currently supported; this is planned
+for future enhancement.
+
+The module supports the following parameters, which should all be specified
+in your Hiera data:
+
+* server: true if a server, false if a client (default false)
+* driftfile: where to write the drift file (default is OS-specific)
+* servers: array of servers to query, by name or IP address (default none)
+* server_options: hash of per-server options; key is server name or IP, as
+provided in the server and peer lists, and value is a string (default none)
+* pool_servers: array of pool servers to use if no other time source is
+specified (default {0,1,2,3}.pool.ntp.org); if this is used, assumes that
+your ntpd is new enough to support the "pool" configuration keyword
+* pool_server_options: option string appended to each pool configured
+(default "iburst")
+* peers: array of peer servers, by name or IP address (default none)
+* refclocks: string containing any reference-clock configuration (default
+none); since refclocks are fairly idiosyncratic, no automated mechanism
+is provided for constructing this part of the configuration
+* keys: hash of symmetric crypto keys to be used for ntpd's in-band
+configuration protocols and to secure client-server and peer-peer associations;
+see below for more details
+* extras: an additional string to be added to the configuration file
+* management_stations: array of IPv4 addresses which represent machines
+which may be used to manage or monitor network services on your network;
+these will be used to generate ACLs (default: the global Hiera variable
+of the same name)
+* managed_package: string naming the package which contains ntpd on your
+system, or undef if this class should not attempt to install a package
+(e.g., you're running on FreeBSD and want to use the base-system ntpd)
+* managed_service: string giving the service name used by ntpd ("ntpd"
+on most systems, but "ntp" on Debian-like systems)
+* leapseconds: true if ntpd should be set up to distribute leap-second
+information to clients, false otherwise (default false); *do not* enable
+this option unless you are prepared to watch for IERS Bulletin C leap-second
+announcements and update the file accordingly; generally only needed on
+stratum-1 servers
+* leapseconds_file: the Puppet pseudo-URL for the source of the leapseconds
+file (defaults to the one distributed in this package)
+
+Symmetric keys
+--------------
+The "keys" data in Hiera is a hash; it should have the following YAML
+structure:
+
+  ntp::keys:
+    ntpq:
+      id: 1
+      type: M
+      key: "random16charstrg" # replace this with 16 random characters
+    ntpdc:
+      id: 2
+      type: M
+      key: "replacemereplace" # replace this with 16 random characters
+    ser.ver.name.or.ip:
+      id: 42
+      type: M
+      key: "16morerandomchrs" # replace this with 16 random characters
+    an.oth.er.ser.ver:
+      id: 69
+      type: M
+      key: "yougettheideanow" # replace this with 16 random characters
+
+Other key types are supported; see the ntpd documentation for details.
+Also, this functionality may be replaced or augmented at some point in
+the future with exported resources and automatic generation of random
+keys, so that you don't need to store crypto keys in your Hiera data.
+
+Whenever keys are defined for a node, they will be written to the
+/etc/ntp.keys file.  Administrators should take care that keys should
+not be defined site-wide if there are any hosts with untrusted 
+administrators.
+
+License
+-------
+See the LICENSE file.
+
+Contact
+-------
+vendor-puppet@csail.mit.edu
+
+Support
+-------
+You are on your own.
