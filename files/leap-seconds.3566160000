@@ -122,13 +122,13 @@
 #	during the leap second does not arise.
 #
 #	Questions or comments to:
-#		Rich Schmidt
+#		Jeff Prillaman
 #		Time Service Department
 #		US Naval Observatory
 #		Washington, DC
-#		rich.schmidt@usno.navy.mil
+#		jeffrey.prillaman@usno.navy.mil
 #
-#	Last Update of leap second values:   10 Jan 2012
+#	Last Update of leap second values:   03 Jan 2013
 #
 #	The following line shows this last update date in NTP timestamp 
 #	format. This is the date on which the most recent change to
@@ -136,7 +136,7 @@
 #	be identified by the unique pair of characters in the first two 
 #	columns as shown below.
 #
-#$	 3535142400
+#$	 3566160000
 #
 #	The data in this file will be updated periodically as new leap 
 #	seconds are announced. In addition to being entered on the line
@@ -168,10 +168,10 @@
 #	current -- the update time stamp, the data and the name of the file 
 #	will not change.
 #
-#	Updated through IERS Bulletin C43
-#	File expires on:  28 Dec 2012
+#	Updated through IERS Bulletin C 44
+#	File expires on:  1 Jun 2013
 #
-#@	3565641600
+#@	3579033600
 #
 2272060800	10	# 1 Jan 1972
 2287785600	11	# 1 Jul 1972
@@ -200,11 +200,11 @@
 3439756800	34	# 1 Jan 2009
 3550089600	35	# 1 Jul 2012
 #	 For future reference, if needed:
-#3565987200	36	# 1 Jan 2013
-#3581625600	37	# 1 Jul 2013
-#3597523200 	38	# 1 Jan 2014
-#3613161600 	39	# 1 Jul 2014
-#3629059200 	40	# 1 Jan 2015
+#3581625600	36	# 1 Jul 2013
+#3597523200	37	# 1 Jan 2014
+#3613161600	38	# 1 Jul 2014
+#3629059200	39	# 1 Jan 2015
+#3644697600	40	# 1 Jul 2015
 #
 #	the following special comment contains the
 #	hash value of the data in this file computed
@@ -220,4 +220,5 @@
 #	the hash line is also ignored in the
 #	computation.
 #
-#h      b2a5e90a 313a6ce afe814f3 46bff6d8 875672e2
+#h	132eedc1 bb8832dd 2cab16f5 bbc8334c 9de2afed
+#
