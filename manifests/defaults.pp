@@ -53,5 +53,5 @@ class ntp::defaults {
   #   ftp://tycho.usno.navy.mil/pub/ntp/leap-seconds.${timestamp}
   # where ${timestamp} is the NTP timestamp in decimal.
   $leapseconds = false
-  $leapseconds_file = 'puppet:///modules/ntp/leap-seconds.3566160000'
+  $leapseconds_file = 'puppet:///modules/ntp/leap-seconds.3571084800'
 }
