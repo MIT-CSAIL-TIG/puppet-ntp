@@ -1,5 +1,5 @@
 name 'csail-ntp'
-version '0.0.2'
+version '0.0.3'
 source 'http://tig.csail.mit.edu/git-public/ntp.git'
 author 'MIT Computer Science & Artificial Intelligence Laboratory'
 license 'MIT'
@@ -9,6 +9,7 @@ clients.  It has been deployed on FreeBSD (including on a stratum-1 server)
 and on Ubuntu, and should support other operating systems fairly easily.
 It handles package installation, service definition and configuration,
 and monitoring (using monit::monitor and munin::plugin virtual resources).
-All configuration is stored in Hiera.'
+All configuration is stored in Hiera.  (Note that monit and munin are
+non-Forge modules and not listed as dependencies here.)'
 project_page 'http://tig.csail.mit.edu/wiki/TIG/PuppetAtCSAIL'
 dependency 'csail/freebsd', '>= 0.0.1'
