@@ -128,7 +128,7 @@
 #		Washington, DC
 #		jeffrey.prillaman@usno.navy.mil
 #
-#	Last Update of leap second values:   1 Mar 2013
+#	Last Update of leap second values:  10 Jul 2013
 #
 #	The following line shows this last update date in NTP timestamp 
 #	format. This is the date on which the most recent change to
@@ -136,7 +136,7 @@
 #	be identified by the unique pair of characters in the first two 
 #	columns as shown below.
 #
-#$	 3571084800
+#$	 3582403200
 #
 #	The data in this file will be updated periodically as new leap 
 #	seconds are announced. In addition to being entered on the line
@@ -168,10 +168,10 @@
 #	current -- the update time stamp, the data and the name of the file 
 #	will not change.
 #
-#	Updated through IERS Bulletin C 45
-#	File expires on:  1 Dec 2013
+#	Updated through IERS Bulletin C 46
+#	File expires on:  1 Jun 2014
 #
-#@	3594844800
+#@	3610569600
 #
 2272060800	10	# 1 Jan 1972
 2287785600	11	# 1 Jul 1972
@@ -214,5 +214,5 @@
 #	the hash line is also ignored in the
 #	computation.
 #
-#h	bf54a595 f9e031d7 d3d77c4 37e4c7a5 92218ba
+#h	dc2e6b0b 5aade95d a0587abd 4e0dacb4 e4d5049e
 #
