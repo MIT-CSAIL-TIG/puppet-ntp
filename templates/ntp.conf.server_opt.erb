@@ -24,9 +24,12 @@ controlkey	<%= @keys['ntpq']['id'] %>
 <% end -%>
 #
 # Access controls for unauthenticated clients
+# We hate to disable queries as they are useful for debugging,
+# but unfortunately they are commonly used in amplification
+# attacks.
 #
-restrict default kod nomodify notrap nopeer
-restrict -6 default kod nomodify notrap nopeer
+restrict default kod nomodify notrap nopeer noquery limited
+restrict -6 default kod nomodify notrap nopeer noquery limited
 
 # Allow network managers to do anything
 <% @management_stations.each do |manager| -%>
