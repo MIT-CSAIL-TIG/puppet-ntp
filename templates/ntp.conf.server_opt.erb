@@ -25,8 +25,8 @@ controlkey	<%= @keys['ntpq']['id'] %>
 #
 # Access controls for unauthenticated clients
 #
-restrict default kod nomodify notrap nopeer
-restrict -6 default kod nomodify notrap nopeer
+restrict default kod nomodify notrap nopeer noquery
+restrict -6 default kod nomodify notrap nopeer noquery
 
 # Allow network managers to do anything
 <% @management_stations.each do |manager| -%>
