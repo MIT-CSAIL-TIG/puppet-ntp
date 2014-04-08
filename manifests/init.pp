@@ -30,7 +30,7 @@ class ntp (
 
   if ($managed_package) {
     package { 'ntp':
-      ensure => latest,
+      ensure => present,
       name   => $managed_package,
     }
   }
