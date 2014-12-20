@@ -1,5 +1,5 @@
 name 'csail-ntp'
-version '0.0.5'
+version '0.0.6'
 source 'http://tig.csail.mit.edu/git-public/ntp.git'
 author 'MIT Computer Science & Artificial Intelligence Laboratory'
 license 'MIT'
