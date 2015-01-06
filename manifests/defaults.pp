@@ -51,7 +51,9 @@ class ntp::defaults {
   # soon after the announcement (IERS Bulletin C) of a new leap second
   # insertion or deletion.  This file is obtained from
   #   ftp://tycho.usno.navy.mil/pub/ntp/leap-seconds.${timestamp}
+  # or
+  #   ftp://time.nist.gov/pub/leap-seconds.${timestamp}
   # where ${timestamp} is the NTP timestamp in decimal.
   $leapseconds = false
-  $leapseconds_file = 'puppet:///modules/ntp/leap-seconds.3617308800'
+  $leapseconds_file = 'puppet:///modules/ntp/leap-seconds.3629404800'
 }
