@@ -6,6 +6,7 @@ class ntp::defaults {
   $managed_package = $::osfamily ? {
 	'FreeBSD' => 'ntp',
 	'Debian'  => 'ntp',
+	'RedHat'  => 'ntp',
 	default   => undef
   }
 
@@ -23,6 +24,7 @@ class ntp::defaults {
   $driftfile          = $::osfamily ? {
 	'FreeBSD' => '/var/db/ntpd.drift',
 	'Debian'  => '/var/lib/ntp/ntp.drift',
+        'RedHat'  => '/var/lib/ntp/drift',
 	default   => '/etc/ntp.drift',
   }
 
