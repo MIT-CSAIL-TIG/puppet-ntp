@@ -40,7 +40,7 @@ class ntp (
   if $::osfamily == 'FreeBSD' and $managed_package {
     file_line { 'ntpd_program':
       path	=> '/etc/rc.conf',
-      line	=> "ntpd_program=\"${::localbase}/sbin/ntpd\"",
+      line	=> "ntpd_program=\"/usr/local/sbin/ntpd\"",
       match	=> '^ntpd_program=',
       before	=> [ Service['ntp'] ],
       require	=> [ Package['ntp'] ],
