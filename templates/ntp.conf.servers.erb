@@ -28,8 +28,8 @@ peer <%= peer -%>
 <%   end -%>
 <%   if @keys.has_key?(peer) -%>
  keyid <%= @keys[peer]['id'] %>
-<%   end -%>
-<% end %>
+<%   end %>
+<% end -%>
 <% @servers.each do |server| -%>
 <% server = server.sub(/[[:space:]]*#.*/, '') -%>
 server <%= server -%>
@@ -40,13 +40,13 @@ server <%= server -%>
 <%   end -%>
 <%   if @keys.has_key?(server) -%>
  keyid <%= @keys[server]['id'] %>
-<%   end -%>
-<% end %>
+<%   end %>
+<% end -%>
 <% if @servers.empty? and @peers.empty? and @refclocks.empty? -%>
 <%   @pool_servers.each do |pool_server| -%>
 pool <%= pool_server -%>
 <%     unless @pool_server_options.nil? -%>
  <%= @pool_server_options -%>
-<%     end -%>
-<%   end %>
+<%     end %>
+<%   end -%>
 <% end -%>
