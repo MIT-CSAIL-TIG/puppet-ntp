@@ -1,2 +1,3 @@
 ftp://tycho.usno.navy.mil/pub/ntp/leap-seconds.list
 ftp://ftp.nist.gov/pub/time/leap-seconds.list
+https://data.iana.org/time-zones/tzdb-YYYYv/leap-seconds.list
