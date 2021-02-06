@@ -13,6 +13,7 @@ class ntp (
   $managed_service,
   $leapseconds,
   $leapseconds_file,
+  $leapseconds_source,
   $pidfile,
   $auto_leapseconds,
   $auto_leapseconds_file,

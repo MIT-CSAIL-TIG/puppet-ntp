@@ -34,19 +34,10 @@ ntp::pool_servers:
 # Options to use when using the pool servers.
 ntp::pool_server_options: iburst
 
-# Most sites probably won't install a leapseconds file.  Note that
-# the configuration for leapseconds depends on which version of
-# ntpd you are running; it only makes sense to enable this on machines
-# that have ntpd 4.2.6 or later.  This file needs to be updated
-# soon after the announcement (IERS Bulletin C) of a new leap second
-# insertion or deletion.  This file is obtained from
-#   ftp://tycho.usno.navy.mil/pub/ntp/leap-seconds.${timestamp}
-# or
-#   ftp://time.nist.gov/pub/leap-seconds.${timestamp}
-# where ${timestamp} is the NTP timestamp in decimal.
-#
 ntp::leapseconds: false
 ntp::leapseconds_file: 'puppet:///modules/ntp/leap-seconds'
+ntp::leapseconds_source:
+  'https://www.ietf.org/timezones/data/leap-seconds.list'
 
 # Some operating systems support retrieving a leap-seconds file
 # automatically at startup, and on those systems, we will rely on
