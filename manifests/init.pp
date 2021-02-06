@@ -152,11 +152,7 @@ class ntp (
     }
   }
 
-  @munin::plugin {['ntp_offset', 'ntp_kernel_err', 'ntp_kernel_pll_freq',
-		   'ntp_kernel_pll_off']:
-    config => 'env.PATH /usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin',
-    tag => 'standard',
-  }
+  include ntp::munin
 
   # Assume that if you're not using a pidfile, then ntpd is running
   # under a service manager that doesn't need one, and therefore there
