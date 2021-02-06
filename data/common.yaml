@@ -1,0 +1,62 @@
+# Defaults common across all or most operating systems
+
+# Determines which package should be installed (if any) to run ntpd on
+# this platform.  Set to nil ("~" in YAML syntax) for platforms that
+# should not have ntpd packages managed by puppet.
+ntp::managed_package: ntp
+
+# Name by which the NTP service is known to Puppet's "service" type.
+ntp::managed_service: ntpd
+
+# Define in node-specific data or manifests if this system is going to
+# be a server *for other NTP clients*.  (All systems will be
+# configured to run a server; this merely determines whether it will
+# be configured to allow clients to access it.)
+ntp::server: false
+
+# Where ntpd should write its estimate of the local oscillator's
+# frequency error, which is written hourly and read on boot to reduce
+# time to synchronization.
+ntp::driftfile: /etc/ntp.drift
+
+# Where ntpd writes its process ID on startup.  Some platforms do not
+# use or require this.
+ntp::pidfile: /var/run/ntpd.pid
+
+# Default servers to configure if the node does not have any servers
+# configured.
+ntp::pool_servers:
+  - 0.pool.ntp.org
+  - 1.pool.ntp.org
+  - 2.pool.ntp.org
+  - 3.pool.ntp.org
+
+# Options to use when using the pool servers.
+ntp::pool_server_options: iburst
+
+# Most sites probably won't install a leapseconds file.  Note that
+# the configuration for leapseconds depends on which version of
+# ntpd you are running; it only makes sense to enable this on machines
+# that have ntpd 4.2.6 or later.  This file needs to be updated
+# soon after the announcement (IERS Bulletin C) of a new leap second
+# insertion or deletion.  This file is obtained from
+#   ftp://tycho.usno.navy.mil/pub/ntp/leap-seconds.${timestamp}
+# or
+#   ftp://time.nist.gov/pub/leap-seconds.${timestamp}
+# where ${timestamp} is the NTP timestamp in decimal.
+#
+ntp::leapseconds: false
+ntp::leapseconds_file: 'puppet:///modules/ntp/leap-seconds'
+
+# Some operating systems support retrieving a leap-seconds file
+# automatically at startup, and on those systems, we will rely on
+ntp::auto_leapseconds: false
+# ntp::auto_leapseconds_file: /path/to/correct/file
+
+# There are no defaults for these but they are entirely optional.
+# Just leaving these here for now.
+# ntp::servers: []
+# ntp::server_options: {}
+# ntp::peers: []
+# ntp::refclocks: []
+# ntp::keys: {}

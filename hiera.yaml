@@ -1,0 +1,23 @@
+---
+version: 4
+datadir: data
+hierarchy:
+  - name: "LSB Distribution"
+    backend: yaml
+    path: "lsbdistcodename/%{::lsbdistcodename}"
+
+  - name: "Operating System major release"
+    backend: yaml
+    path: "operatingsystem/${::operatingsystem}/${::operatingsystemmajrelease}"
+
+  - name: "Operating System"
+    backend: yaml
+    path: "operatingsystem/%{::operatingsystem}"
+
+  - name: "OS family"
+    backend: yaml
+    path: "osfamily/%{::osfamily}"
+
+  - name: "common"
+    backend: yaml
+

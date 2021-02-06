@@ -4,29 +4,26 @@
 #
 # Requires: 
 #
-# Notes: No reasonable client will actually try to set any of these,
-# except maybe the first.  This kluge is only used to tell Puppet to
-# look up the answers in Hiera "the new way".  Unfortunately, this
-# forces the rest of the implementation to be spaghetti rather than a
-# sensible class hierarchy.  Prepare to be disgusted.
-#
 class ntp (
-	$server = $ntp::defaults::server,
-	$driftfile = $ntp::defaults::driftfile,
-	$servers = $ntp::defaults::servers,
-	$server_options = $ntp::defaults::server_options,
-	$pool_servers = $ntp::defaults::pool_servers,
-	$pool_server_options = $ntp::defaults::pool_server_options,
-	$peers = $ntp::defaults::peers,
-	$refclocks = undef,
-	$keys = $ntp::defaults::keys,
-	$extras = undef,
-	$management_stations = hiera_array('management_stations', []),
-	$managed_package = $ntp::defaults::managed_package,
-	$managed_service = $ntp::defaults::managed_service,
-	$leapseconds = $ntp::defaults::leapseconds,
-	$leapseconds_file = $ntp::defaults::leapseconds_file,
-	) inherits ntp::defaults {
+  $server,
+  $driftfile,
+  $pool_servers,
+  $pool_server_options,
+  $managed_package,
+  $managed_service,
+  $leapseconds,
+  $leapseconds_file,
+  $pidfile,
+  $auto_leapseconds,
+  $auto_leapseconds_file,
+  $servers = [],
+  $server_options = {},
+  $peers = [],
+  $refclocks = undef,
+  $keys = {},
+  $extras = undef,
+  $management_stations = hiera_array('management_stations', []),
+  ) {
 
   if ($managed_package) {
     package { 'ntp':
@@ -57,13 +54,22 @@ class ntp (
     service { 'ntpdate':
       enable	=> false,
     }
+  } elsif $::osfamily == 'FreeBSD' {
+    file_line { 'ntpd_program':
+      path      => '/etc/rc.conf',
+      ensure    => absent,
+      match     => '^ntpd_program=',
+      before    => [ Service['ntp'] ],
+    }
   }
 
   service { 'ntp':
     ensure    => running,
     enable    => true,
     name      => $managed_service,
-    require   => Package['ntp'],
+  }
+  if $managed_package {
+    Package['ntp'] -> Service['ntp']
   }
 
   # OK to restart ntpd on a client, not so on a server.

@@ -1,0 +1,6 @@
+# Debian-family OSes are weird and call the NTP service 'ntp' rather
+# than 'ntpd' like everyone else.
+ntp::managed_service: ntp
+
+ntp::driftfile: /var/lib/ntp/ntp.drift
+

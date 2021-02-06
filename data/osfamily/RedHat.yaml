@@ -1,0 +1,3 @@
+# I have no idea if this is even accurate any more; we're no longer
+# making any attempt to run or test on RedHat-family systems.
+ntp::driftfile: /var/lib/ntp/drift

@@ -1,0 +1,3 @@
+# See data/osfamily/FreeBSD.yaml for information about changes
+# in the locations of these files.
+ntp::driftfile: /var/db/ntpd.drift

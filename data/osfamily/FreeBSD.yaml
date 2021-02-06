@@ -1,0 +1,18 @@
+#
+# This is based on where FreeBSD 12.2 expects things to be located.
+# Previous FreeBSD releases have changed this over time and may
+# require overrides or local configuration.
+#
+
+# FreeBSD 12 ships with an up-to-date ntpd, no need to install the
+# package unless you are building one with refclock drivers enabled.
+ntp::managed_package: ~
+
+# These files moved from /var/db and /var/run, respectively, in
+# FreeBSD 12 when the base system gained the ability to run
+# ntpd as an unprivileged user.
+ntp::driftfile: /var/db/ntp/ntpd.drift
+ntp::pidfile: /var/db/ntp/ntpd.pid
+
+ntp::auto_leapseconds: true
+ntp::auto_leapseconds_file: /var/run/ntpd.leap-seconds.list
