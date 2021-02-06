@@ -158,10 +158,12 @@ class ntp (
     tag => 'standard',
   }
 
-  # The title of this resource must be the name of the service (as known
-  # to the rc scripts).
-  @monit::monitor {$managed_service:
-    pidfile => '/var/run/ntpd.pid',
-    tag => 'default',
+  # Assume that if you're not using a pidfile, then ntpd is running
+  # under a service manager that doesn't need one, and therefore there
+  # is no need for monit to monitor it.
+  if ($pidfile) {
+    ntp::monit {$managed_service:
+      pidfile => $pidfile,
+    }
   }
 }
