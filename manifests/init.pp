@@ -16,7 +16,7 @@ class ntp (
   $leapseconds_source,
   $pidfile,
   $auto_leapseconds,
-  $auto_leapseconds_file,
+  $auto_leapseconds_file = undef,
   $servers = [],
   $server_options = {},
   $peers = [],
