@@ -58,6 +58,7 @@ class ntp (
   } elsif $::osfamily == 'FreeBSD' {
     file_line { 'ntpd_program':
       path      => '/etc/rc.conf',
+      line      => 'this value is required but not used',
       ensure    => absent,
       match     => '^ntpd_program=',
       before    => [ Service['ntp'] ],
