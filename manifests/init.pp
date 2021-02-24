@@ -59,7 +59,6 @@ class ntp (
     file_line { 'ntpd_program':
       ensure    => absent,
       path      => '/etc/rc.conf',
-      line      => 'this value is required but not used',
       match     => '^ntpd_program=',
       match_for_absence => true,
       before    => [ Service['ntp'] ],
