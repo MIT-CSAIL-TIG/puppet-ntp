@@ -11,8 +11,13 @@ ntp::managed_package: ~
 # These files moved from /var/db and /var/run, respectively, in
 # FreeBSD 12 when the base system gained the ability to run
 # ntpd as an unprivileged user.
-ntp::driftfile: /var/db/ntp/ntpd.drift
+#ntp::driftfile: /var/db/ntp/ntpd.drift
 ntp::pidfile: /var/db/ntp/ntpd.pid
+
+# FreeBSD 12 checks whether ntp.conf includes a driftfile command
+# and disables some automatic behavior, so we don't actually want
+# it defined at all.
+ntp::driftifle: ~
 
 ntp::auto_leapseconds: true
 ntp::auto_leapseconds_file: /var/run/ntpd.leap-seconds.list

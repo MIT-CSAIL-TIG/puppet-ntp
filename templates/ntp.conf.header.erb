@@ -7,7 +7,9 @@
 -%>
 # NTP configuration file for <%= @fqdn %>
 #
+<% if @driftfile -%>
 driftfile <%= @driftfile %>
+<% end -%>
 <% if @leapseconds -%>
 leapfile /etc/ntp.leapseconds
 <% end -%>
