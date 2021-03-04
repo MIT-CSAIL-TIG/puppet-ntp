@@ -131,8 +131,10 @@ class ntp (
       owner   => 0,
       group   => 0,
       mode    => '0600',
-      require => Package['ntp'],
       content => template('ntp/ntp.keys.erb'),
+    }
+    if $managed_package {
+      Package['ntp'] -> File['/etc/ntp.keys']
     }
   }
 
