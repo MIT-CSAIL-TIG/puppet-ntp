@@ -5,6 +5,7 @@
 # Requires: 
 #
 class ntp (
+  $config_file,
   $server,
   $driftfile,
   $pool_servers,
@@ -85,7 +86,7 @@ class ntp (
   } else {
     Service['ntp'] {
 	hasrestart => true,
-	subscribe => [ File['/etc/ntp.conf'] ],
+	subscribe => [ File[$config_file] ],
     }
   }
 
@@ -97,26 +98,26 @@ class ntp (
     Package['ntp'] { notify => Service['ntp'], }
   }
 
-  file {'/etc/ntp.conf':
+  file {$config_file:
     owner  => 0,
     group  => 0,
     mode   => '0644',
   }
   if $managed_package {
-    File['/etc/ntp.conf'] { require => Package['ntp'], }
+    File[$config_file] { require => Package[$managed_package], }
   }
   if !$server {
-    File['/etc/ntp.conf'] { notify => Service['ntp'], }
+    File[$config_file] { notify => Service[$managed_service], }
   }
 
   if $server {
-    File['/etc/ntp.conf'] {
+    File[$config_file] {
       content => template('ntp/ntp.conf.header.erb',
 	'ntp/ntp.conf.server_opt.erb', 'ntp/ntp.conf.servers.erb',
 	'ntp/ntp.conf.extras.erb'),
     }
   } else {
-    File['/etc/ntp.conf'] {
+    File[$config_file] {
       content => template('ntp/ntp.conf.header.erb',
 	'ntp/ntp.conf.client_opt.erb', 'ntp/ntp.conf.servers.erb',
 	'ntp/ntp.conf.extras.erb'),
@@ -147,7 +148,7 @@ class ntp (
       mode    => '0444',
       replace => true,
       source  => $leapseconds_file,
-      require => File['/etc/ntp.conf'],
+      require => File[$config_file],
     }
   } else {
     file {'/etc/ntp.leapseconds':

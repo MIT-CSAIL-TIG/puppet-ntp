@@ -1,0 +1,5 @@
+# Ubuntu 24.04 uses `ntpsec` rather than traditional `ntpd` and puts
+# its config file in a different place.
+ntp::config_file: /etc/ntpsec/ntp.conf
+ntp::managed_package: ntpsec
+ntp::managed_service: ntpsec

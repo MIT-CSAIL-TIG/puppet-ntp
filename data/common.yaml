@@ -1,5 +1,8 @@
 # Defaults common across all or most operating systems
 
+# Where is the configuration file located?
+ntp::config_file: '/etc/ntp.conf'
+
 # Determines which package should be installed (if any) to run ntpd on
 # this platform.  Set to nil ("~" in YAML syntax) for platforms that
 # should not have ntpd packages managed by puppet.
