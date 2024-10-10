@@ -104,10 +104,10 @@ class ntp (
     mode   => '0644',
   }
   if $managed_package {
-    File[$config_file] { require => Package[$managed_package], }
+    File[$config_file] { require => Package['ntp'], }
   }
   if !$server {
-    File[$config_file] { notify => Service[$managed_service], }
+    File[$config_file] { notify => Service['ntp'], }
   }
 
   if $server {
