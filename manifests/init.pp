@@ -157,13 +157,4 @@ class ntp (
   }
 
   include ntp::munin
-
-  # Assume that if you're not using a pidfile, then ntpd is running
-  # under a service manager that doesn't need one, and therefore there
-  # is no need for monit to monitor it.
-  if ($pidfile) {
-    ntp::monit {$managed_service:
-      pidfile => $pidfile,
-    }
-  }
 }
